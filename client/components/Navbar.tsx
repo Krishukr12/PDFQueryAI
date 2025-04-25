@@ -1,8 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
 import { ThemeToggler } from "./ThemeToggler";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export function Navbar() {
@@ -35,7 +32,7 @@ export function Navbar() {
 
           <div className="md:hidden flex items-center gap-4">
             <ThemeToggler />
-            <Sheet>
+            {/* <Sheet>
               <SheetTrigger className="focus:outline-none focus:ring-2 focus:ring-ring rounded-lg">
                 <Menu className="h-7 w-7 text-foreground/90 hover:text-foreground transition-colors" />
               </SheetTrigger>
@@ -66,7 +63,7 @@ export function Navbar() {
                   </SignedIn>
                 </div>
               </SheetContent>
-            </Sheet>
+            </Sheet> */}
           </div>
         </div>
       </div>

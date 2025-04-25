@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { ThemeToggler } from "./ThemeToggler";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export function Navbar() {
@@ -12,21 +12,12 @@ export function Navbar() {
         <div className="flex justify-between h-16 items-center">
           <Link href="/" className="flex items-center space-x-2 group">
             <span className="text-2xl font-bold bg-gradient-to-r from-primary to-chart-3 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">
-              PDFQueryAI
+              PDFQueryA!
             </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-4 ml-6">
-              <SignedOut>
-                <Button
-                  variant="default"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg transition-colors"
-                >
-                  <SignInButton>Get Started</SignInButton>
-                </Button>
-              </SignedOut>
-
               <SignedIn>
                 <UserButton
                   appearance={{

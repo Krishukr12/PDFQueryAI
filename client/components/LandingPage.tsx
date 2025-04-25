@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import {
   RocketIcon,
   LockClosedIcon,
@@ -20,10 +21,22 @@ const LandingPage: React.FC = () => {
         </p>
 
         <div className="flex gap-4 justify-center">
-          <Button className="bg-primary hover:bg-primary/90 px-8 py-6 text-lg">
-            <RocketIcon className="mr-2 h-5 w-5" />
-            Get Started
-          </Button>
+          <SignedIn>
+            <Link href="/dashboard">
+              <Button className="bg-primary hover:bg-primary/90 px-8 py-6 text-lg">
+                <RocketIcon className="mr-2 h-5 w-5" />
+                Query Your PDFs
+              </Button>
+            </Link>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button className="bg-primary hover:bg-primary/90 px-8 py-6 text-lg">
+                <RocketIcon className="mr-2 h-5 w-5" />
+                Get Started
+              </Button>
+            </SignInButton>
+          </SignedOut>
 
           <Link href="/learn-more">
             <Button variant="outline" className="px-8 py-6 text-lg">

@@ -22,7 +22,7 @@ const LandingPage: React.FC = () => {
 
         <div className="flex gap-4 justify-center">
           <SignedIn>
-            <Link href="/dashboard">
+            <Link href="/user-chat">
               <Button className="bg-primary hover:bg-primary/90 px-8 py-6 text-lg">
                 <RocketIcon className="mr-2 h-5 w-5" />
                 Query Your PDFs

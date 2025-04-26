@@ -1,9 +1,7 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
-
 
 .cl-userButtonAvatarBox {
   width: 35px !important; /* w-12 */
@@ -13,7 +11,6 @@
 .cl-userButtonRoot {
   height: 35px !important;
 }
-
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -122,7 +119,6 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
-
 .dark {
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
@@ -157,7 +153,6 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
-
 .dark {
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
@@ -191,7 +186,6 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
-
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -235,4 +229,3 @@
     @apply bg-background text-foreground;
   }
 }
-

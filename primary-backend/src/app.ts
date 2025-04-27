@@ -15,6 +15,8 @@ app.use(cors());
 app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`🚀 PRIMARY BACKEND started successfully!`);
+  // eslint-disable-next-line no-console
   console.log(`🌐 PRIMARY BACKEND is running on http://localhost:${PORT}`);
 });

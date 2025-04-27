@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+.pnpm-store/
+
+# Environment variables
+.env
+.env.*
+
+# Build output
+/dist
+*.js.map
+.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db

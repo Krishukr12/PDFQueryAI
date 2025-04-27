@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    /* Target modern JavaScript in Node.js */
+    "target": "ES2020",
+    "module": "commonjs",
+
+    //* import alias //*
+    "paths": {
+      "@utils/*": ["./utils/*", "./src/utils/*"]
+    },
+
+    /* Where to find source files and emit compiled code */
+    "rootDir": "src",
+    "outDir": "dist",
+
+    /* Generate source maps for debugging */
+    "sourceMap": true,
+
+    /* Incremental build for faster re-compiles */
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+
+    /* Strong type-checking options */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    /* Module resolution for Node.js */
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Allow default imports from CommonJS modules */
+    "allowSyntheticDefaultImports": true,
+
+    /* Enable decorators if needed (e.g., for class-based DI) */
+    // "experimentalDecorators": true,
+    // "emitDecoratorMetadata": true,
+
+    /* Skip type checking of declaration files for faster builds */
+    "skipLibCheck": true,
+
+    /* Include definitions for Node and Express */
+    "types": ["node", "express"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -16,7 +16,7 @@
 
 <div align="center">
 
-<img src="pdfQueryAi_diagram.png" alt="System Design Flow" />
+<img src="system_design.png" alt="System Design Flow" />
 
 </div>
 

@@ -4,6 +4,7 @@
     "target": "ES2020",
     "module": "commonjs",
 
+
     //* import alias //*
     "paths": {
       "@utils/*": ["./utils/*", "./src/utils/*"]
@@ -45,7 +46,8 @@
     "skipLibCheck": true,
 
     /* Include definitions for Node and Express */
-    "types": ["node", "express"]
+    "types": ["node", "express", "jest"]
+
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

@@ -10,6 +10,18 @@
 
 **PDFQueryAI** is an intelligent document interaction platform that transforms how you work with PDFs. Using state-of-the-art AI technology, it allows users to have natural conversations with their documents, extracting insights and information effortlessly.
 
+---
+
+## 🛠 System Design Flow
+
+<div align="center">
+
+<img src="pdfQueryAi_diagram.png" alt="System Design Flow" />
+
+</div>
+
+---
+
 ## 🎯 Key Features
 
 ### Core Capabilities

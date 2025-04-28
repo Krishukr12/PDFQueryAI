@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 
 import { globalErrorHandler } from '@utils/globalErrorHandler';
@@ -11,6 +11,10 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/health', (req: Request, res: Response) => {
+  res.status(200).send({ success: true, message: 'sever is healthy' });
+});
 
 app.use(globalErrorHandler);
 

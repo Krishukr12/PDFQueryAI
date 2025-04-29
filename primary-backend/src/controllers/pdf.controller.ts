@@ -1,9 +1,10 @@
+import { addToQueue } from '@queue-system/producer';
 import { createError } from '@utils/createError';
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-export const handlePdfUpload = (req: Request, res: Response, next: NextFunction) => {
-  if (req.file) {
+export const handlePdfUpload = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.file) {
     next(createError(StatusCodes.BAD_REQUEST, 'file upload failed'));
     return;
   }
@@ -18,6 +19,8 @@ export const handlePdfUpload = (req: Request, res: Response, next: NextFunction)
     );
     return;
   }
+
+  await addToQueue(req.file.path);
 
   // Publish Event from here to queue
 

@@ -7,7 +7,10 @@
 
     //* import alias //*
     "paths": {
-      "@utils/*": ["./utils/*", "./src/utils/*"]
+      "@utils/*": ["./utils/*", "./src/utils/*"],
+      "@routes/*":["./routes/*","./src/routes/*"],
+      "@controllers/*":["./controllers/*","./src/controllers/*"]
+
     },
 
     /* Where to find source files and emit compiled code */

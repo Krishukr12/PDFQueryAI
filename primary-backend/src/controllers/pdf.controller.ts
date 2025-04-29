@@ -3,6 +3,10 @@ import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 export const handlePdfUpload = (req: Request, res: Response, next: NextFunction) => {
+  if (req.file) {
+    next(createError(StatusCodes.BAD_REQUEST, 'file upload failed'));
+    return;
+  }
   const pdfFile = req.file;
 
   if (!pdfFile) {
@@ -14,4 +18,11 @@ export const handlePdfUpload = (req: Request, res: Response, next: NextFunction)
     );
     return;
   }
+
+  // Publish Event from here to queue
+
+  res.send({
+    success: true,
+    message: 'pdf uploaded successfully',
+  });
 };

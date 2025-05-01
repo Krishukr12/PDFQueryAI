@@ -1,11 +1,9 @@
+import fs from 'fs';
+import pdfParse from 'pdf-parse';
+
 import { PDF_QUEUE_SYSTEM } from '@const/queue-const';
 import { QueueEvents, Worker } from 'bullmq';
-import { Redis } from 'ioredis';
-
-const redisConnection = new Redis({
-  host: 'localhost',
-  port: 6379,
-});
+import { chunkText, getEmbedding, uploadToQdrant } from '@utils/worker';
 
 const queueEvents = new QueueEvents(PDF_QUEUE_SYSTEM);
 
@@ -13,10 +11,32 @@ export const pdfQueueWorker = new Worker(
   PDF_QUEUE_SYSTEM,
   async (job) => {
     const { filePath } = job.data;
-    console.log('coming to worker');
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(`worker have complete their job for filePath: ${filePath}`);
+    // 1. Read and parse PDF
+    const dataBuffer = fs.readFileSync(filePath);
+    const pdfData = await pdfParse(dataBuffer);
+    const text = pdfData.text;
+
+    // 2. Chunk the text
+    const chunks = chunkText(text, 500);
+
+    // 3. Embed each chunk with HuggingFACE
+    const embeddings = [];
+    for (let chunk in chunks) {
+      const embedding = await getEmbedding(chunk);
+      if (embedding.length > 0) {
+        embeddings.push({
+          vector: embedding,
+          payload: { text: chunk },
+        });
+      }
+    }
+
+    // 4. Store in Qdrant
+    await uploadToQdrant(embeddings);
+
+    console.log('✅ Embedding uploaded to QDrantDb successfully');
+    return { success: true };
   },
   {
     connection: {
@@ -30,26 +50,18 @@ export const pdfQueueWorker = new Worker(
   },
 );
 
-redisConnection.on('connect', () => {
-  console.log('Redis connected successfully ( worker side )');
-});
-
-redisConnection.on('error', (err) => {
-  console.error('Redis connection error:', err);
-});
-
 queueEvents.on('waiting', ({ jobId }) => {
-  console.log(`A job with ID ${jobId} is waiting`);
+  console.log(`✅ A job with ID ${jobId} is waiting`);
 });
 
 queueEvents.on('active', ({ jobId, prev }) => {
-  console.log(`Job ${jobId} is now active; previous status was ${prev}`);
+  console.log(`✅ Job ${jobId} is now active}`);
 });
 
 queueEvents.on('completed', ({ jobId, returnvalue }) => {
-  console.log(`${jobId} has completed and returned ${returnvalue}`);
+  console.log(`✅ ${jobId} has completed and returned ${returnvalue}`);
 });
 
 queueEvents.on('failed', ({ jobId, failedReason }) => {
-  console.log(`${jobId} has failed with reason ${failedReason}`);
+  console.log(`❌ ${jobId} has failed with reason ${failedReason}`);
 });

@@ -13,9 +13,12 @@ export const pdfQueueProducer = new Queue(PDF_QUEUE_SYSTEM, {
 });
 
 export const addToQueue = async (pdfPath: any) => {
-  const response = await pdfQueueProducer.add(PDF_QUEUE_SYSTEM, { filePath: pdfPath });
-  console.log(response);
-  console.log(`added even to queue for file : ${pdfPath}`);
+  try {
+    await pdfQueueProducer.add(PDF_QUEUE_SYSTEM, { filePath: pdfPath });
+    console.log(`✅ added even to queue for file : ${pdfPath}`);
+  } catch (error) {
+    console.log('❌ error while adding to queue', error);
+  }
 };
 
 redisConnection.on('connect', () => {

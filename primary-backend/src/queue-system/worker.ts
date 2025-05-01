@@ -22,7 +22,7 @@ export const pdfQueueWorker = new Worker(
 
     // 3. Embed each chunk with HuggingFACE
     const embeddings = [];
-    for (let chunk in chunks) {
+    for (const chunk in chunks) {
       const embedding = await getEmbedding(chunk);
       if (embedding.length > 0) {
         embeddings.push({
@@ -54,7 +54,7 @@ queueEvents.on('waiting', ({ jobId }) => {
   console.log(`✅ A job with ID ${jobId} is waiting`);
 });
 
-queueEvents.on('active', ({ jobId, prev }) => {
+queueEvents.on('active', ({ jobId }) => {
   console.log(`✅ Job ${jobId} is now active}`);
 });
 

@@ -5,7 +5,7 @@ export default [
   {
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
-      'no-console': 'warn',
+      'no-console': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },

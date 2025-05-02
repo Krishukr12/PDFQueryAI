@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "prisma.schema": "src/db/schema.prisma",
   "scripts": {
     "build": "tsc",
     "dev": "pnpm run build && tsx src/app.ts",
     "start": " pnpm run build && tsx dist/app.js",
+    "prisma:generate": "prisma generate --schema=src/db/prisma/schema.prisma",
+    "postinstall": "prisma generate --schema=src/db/prisma/schema.prisma",
     "start:producer": "tsx src/queue-system/producer.ts",
     "start:worker": "tsx src/queue-system/worker.ts",
     "check-types": "tsc --noEmit",
@@ -22,6 +25,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clerk/express": "^1.4.11",
+    "@prisma/client": "^6.7.0",
     "@qdrant/js-client-rest": "^1.14.0",
     "@types/axios": "^0.14.4",
     "@types/cors": "^2.8.17",
@@ -39,7 +44,6 @@
     "multer": "1.4.5-lts.2",
     "openai": "^4.96.2",
     "pdf-parse": "^1.1.1",
-    "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "uuid": "^11.1.0"
@@ -54,6 +58,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "jest": "^29.7.0",
     "prettier": "^3.5.3",
+    "prisma": "^6.6.0",
     "supertest": "^7.1.0",
     "ts-jest": "^29.3.2",
     "typescript": "^5.8.3",

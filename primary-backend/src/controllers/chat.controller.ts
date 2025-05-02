@@ -45,7 +45,6 @@ export const postChat = async (req: Request, res: Response, next: NextFunction) 
 
     // get AI response here , save it to db again and respond with current user question with AI answer
 
-    
     if (response) {
       res.status(StatusCodes.OK).send({
         success: true,

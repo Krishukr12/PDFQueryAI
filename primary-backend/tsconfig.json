@@ -10,7 +10,8 @@
       "@routes/*": ["./routes/*", "./src/routes/*"],
       "@controllers/*": ["./controllers/*", "./src/controllers/*"],
       "@queue-system/*": ["./queue-system/*", "./src/queue-system/*"],
-      "@const/*": ["./const/*", "./src/const/*"]
+      "@const/*": ["./const/*", "./src/const/*"],
+      "@db/*":["./db/*","./src/db/*"]
     },
 
     /* Where to find source files and emit compiled code */

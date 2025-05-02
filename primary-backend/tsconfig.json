@@ -11,7 +11,8 @@
       "@controllers/*": ["./controllers/*", "./src/controllers/*"],
       "@queue-system/*": ["./queue-system/*", "./src/queue-system/*"],
       "@const/*": ["./const/*", "./src/const/*"],
-      "@db/*":["./db/*","./src/db/*"]
+      "@db/*": ["./db/*", "./src/db/*"],
+      "@middleware/*":["./middleware/*","./src/middleware/*"]
     },
 
     /* Where to find source files and emit compiled code */

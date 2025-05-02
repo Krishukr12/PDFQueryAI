@@ -20,8 +20,10 @@ enum Role {
 }
 
 model Chat {
-  id      String @id @unique @default(uuid())
-  userId  String
-  role    Role
-  content String
+  id        String   @id @unique @default(uuid())
+  userId    String
+  role      Role
+  content   String
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
 }

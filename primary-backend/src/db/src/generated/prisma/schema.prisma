@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String @id @unique @default(uuid())
+  name  String
+  email String
+}
+
+enum Role {
+  AI
+  USER
+}
+
+model Chat {
+  id        String   @id @unique @default(uuid())
+  userId    String
+  role      Role
+  content   String
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}

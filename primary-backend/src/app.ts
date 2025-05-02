@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(cors());
 app.use(clerkMiddleware());
 
-app.get('/', (req: Request, res: Response) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'health.html'));
-});
+// app.get('/', (req: Request, res: Response) => {
+//   res.status(200).sendFile(path.join(__dirname, 'views', 'health.html'));
+// });
 
 app.use('/upload', uploadPdfRouter);
 app.use('/chat', requireAuth(), chatRouter);

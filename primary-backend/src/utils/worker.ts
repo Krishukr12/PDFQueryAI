@@ -90,3 +90,30 @@ export const uploadToQdrant = async (embedding: Embedding[]) => {
     console.error('❌ Error inserting embedding:', err);
   }
 };
+
+export const searchInQdrant = async (vector: number[], topK = 5): Promise<string[]> => {
+  const collectionName = 'pdf-query-ai';
+
+  try {
+    const searchResult = await qdrant.search(collectionName, {
+      vector,
+      limit: topK,
+      with_payload: true,
+    });
+
+    if (!Array.isArray(searchResult) || searchResult.length === 0) {
+      console.warn('⚠️ No relevant results found in Qdrant.');
+      return [];
+    }
+    console.log('searchREsult', searchResult);
+
+    const contexts = searchResult
+      .map((item) => item.payload?.text)
+      .filter((text): text is string => typeof text === 'string');
+
+    return contexts;
+  } catch (error) {
+    console.error('❌ Qdrant search failed:', error);
+    return [];
+  }
+};

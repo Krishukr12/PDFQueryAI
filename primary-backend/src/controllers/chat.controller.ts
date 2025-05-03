@@ -1,5 +1,7 @@
 import { pdfPrismaClient } from '@db/index';
+import { callAIModel } from '@utils/callModel';
 import { createError } from '@utils/createError';
+import { getEmbedding, searchInQdrant } from '@utils/worker';
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
@@ -34,22 +36,52 @@ export const getAllChat = async (req: Request, res: Response, next: NextFunction
 export const postChat = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.auth?.userId ?? '';
   const { chat } = req.body;
+
   try {
-    const response = await pdfPrismaClient.chat.create({
+    // 1. Save user chat to DB
+    await pdfPrismaClient.chat.create({
       data: {
         role: 'USER',
         userId,
         content: chat,
       },
+      select: {
+        role: true,
+        content: true,
+        updateAt: true,
+        createdAt: true,
+      },
     });
 
-    // get AI response here , save it to db again and respond with current user question with AI answer
+    // 2. Embed user chat
+    const userChatEmbedding = await getEmbedding(chat);
 
-    if (response) {
-      res.status(StatusCodes.OK).send({
-        success: true,
-      });
-    }
+    // 3. Search context in QDrant
+    const relevantDocs = await searchInQdrant(userChatEmbedding, 2);
+
+    // 4. Call AI model with user input and context
+    const aiPrompt = `
+    Context:
+    ${relevantDocs.join('\n\n')}
+
+     User: ${chat}
+     AI:`;
+
+    const aiResponseText = await callAIModel(aiPrompt);
+
+    // 5. Save AI response to DB
+    await pdfPrismaClient.chat.create({
+      data: {
+        role: 'AI',
+        userId,
+        content: aiResponseText,
+      },
+    });
+    // 6. Respond with both user and model message
+    res.status(StatusCodes.OK).send({
+      success: true,
+      chat: [chat, aiResponseText],
+    });
   } catch (error) {
     next(createError(StatusCodes.INTERNAL_SERVER_ERROR, 'something went wrong'));
   }

@@ -18,11 +18,11 @@ export const pdfQueueWorker = new Worker(
     const text = pdfData.text;
 
     // 2. Chunk the text
-    const chunks = chunkText(text, 500);
+    const chunks = chunkText(text, 300);
 
     // 3. Embed each chunk with HuggingFACE
     const embeddings = [];
-    for (const chunk in chunks) {
+    for (const chunk of chunks) {
       const embedding = await getEmbedding(chunk);
       if (embedding.length > 0) {
         embeddings.push({
@@ -31,7 +31,6 @@ export const pdfQueueWorker = new Worker(
         });
       }
     }
-
     // 4. Store in Qdrant
     await uploadToQdrant(embeddings);
 

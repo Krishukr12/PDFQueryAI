@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "pnpm run build && tsx src/app.ts",
-    "start": " pnpm run build && tsx dist/app.js",
+    "start": "tsx dist/app.js",
     "prisma:generate": "prisma generate --schema=src/db/prisma/schema.prisma",
     "postinstall": "prisma generate --schema=src/db/prisma/schema.prisma",
     "start:producer": "tsx src/queue-system/producer.ts",
@@ -18,7 +18,8 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "validate": "pnpm run check-types && pnpm run format && pnpm run format:check && pnpm run lint"
+    "validate": "pnpm run check-types && pnpm run format && pnpm run format:check && pnpm run lint",
+    "predeploy": "pnpm install && pnpm run prisma:generate && pnpm run build"
   },
   "keywords": [],
   "author": "",

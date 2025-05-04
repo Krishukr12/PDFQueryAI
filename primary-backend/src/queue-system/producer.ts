@@ -1,12 +1,10 @@
+require('dotenv').config();
 import { Queue } from 'bullmq';
 import { Redis } from 'ioredis';
 
 import { PDF_QUEUE_SYSTEM } from '@const/queue-const';
 
-const redisConnection = new Redis({
-  host: 'localhost',
-  port: 6379,
-});
+const redisConnection = new Redis(process.env.REDIS_URL ?? '');
 
 export const pdfQueueProducer = new Queue(PDF_QUEUE_SYSTEM, {
   connection: redisConnection,

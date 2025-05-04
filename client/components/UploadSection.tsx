@@ -9,13 +9,14 @@ const UploadSection: React.FC = () => {
   const {
     fileInputRef,
     isDragActive,
-    uploadedFileName,
     handleDrop,
     handleDragOver,
     handleDragLeave,
     handleFileChange,
     handlePdfUpload,
     handleFileUploadToCloud,
+    isLoading,
+    selectedFile,
   } = usePdfUpload();
 
   return (
@@ -37,9 +38,9 @@ const UploadSection: React.FC = () => {
           type="file"
           onChange={handleFileChange}
         />
-        {uploadedFileName ? (
+        {selectedFile && selectedFile.name ? (
           <h2 className="text-lg font-semibold mb-1 text-foreground">
-            {uploadedFileName}
+            {selectedFile.name}
           </h2>
         ) : (
           <h2 className="text-lg font-semibold mb-1 text-foreground">
@@ -47,18 +48,20 @@ const UploadSection: React.FC = () => {
           </h2>
         )}
         <span className="text-sm text-muted-foreground mb-4">or</span>
-        {uploadedFileName ? (
+        {selectedFile ? (
           <Button
+            disabled={isLoading}
             variant="outline"
-            className="px-6 py-2 text-base"
+            className="px-6 py-2 text-base disabled:cursor-not-allowed"
             onClick={handleFileUploadToCloud}
           >
             Upload PDF
           </Button>
         ) : (
           <Button
+            disabled={isLoading}
             variant="outline"
-            className="px-6 py-2 text-base"
+            className="px-6 py-2 text-base disabled:cursor-not-allowed"
             onClick={handlePdfUpload}
           >
             Select PDF

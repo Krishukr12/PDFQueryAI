@@ -4,10 +4,15 @@
     "target": "ES2020",
     "module": "commonjs",
 
-
     //* import alias //*
     "paths": {
-      "@utils/*": ["./utils/*", "./src/utils/*"]
+      "@utils/*": ["./utils/*", "./src/utils/*"],
+      "@routes/*": ["./routes/*", "./src/routes/*"],
+      "@controllers/*": ["./controllers/*", "./src/controllers/*"],
+      "@queue-system/*": ["./queue-system/*", "./src/queue-system/*"],
+      "@const/*": ["./const/*", "./src/const/*"],
+      "@db/*": ["./db/*", "./src/db/*"],
+      "@middleware/*": ["./middleware/*", "./src/middleware/*"]
     },
 
     /* Where to find source files and emit compiled code */
@@ -47,7 +52,6 @@
 
     /* Include definitions for Node and Express */
     "types": ["node", "express", "jest"]
-
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

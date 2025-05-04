@@ -4,8 +4,13 @@ import pdfParse from 'pdf-parse';
 import { PDF_QUEUE_SYSTEM } from '@const/queue-const';
 import { QueueEvents, Worker } from 'bullmq';
 import { chunkText, getEmbedding, uploadToQdrant } from '@utils/worker';
+import Redis from 'ioredis';
 
 const queueEvents = new QueueEvents(PDF_QUEUE_SYSTEM);
+
+const redisConnection = new Redis(process.env.REDIS_URL ?? '', {
+  maxRetriesPerRequest: null,
+});
 
 export const pdfQueueWorker = new Worker(
   PDF_QUEUE_SYSTEM,
@@ -38,10 +43,7 @@ export const pdfQueueWorker = new Worker(
     return { success: true };
   },
   {
-    connection: {
-      host: 'localhost',
-      port: 6379,
-    },
+    connection: redisConnection,
     limiter: {
       max: 10,
       duration: 1000,

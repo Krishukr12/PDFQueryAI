@@ -2,7 +2,7 @@ import { toast } from "sonner";
 
 export const validateAndToast = (
   file: File,
-  inputTarget?: HTMLInputElement,
+  inputTarget?: HTMLInputElement
 ) => {
   if (file.type !== "application/pdf") {
     toast("Only PDF files are allowed.");

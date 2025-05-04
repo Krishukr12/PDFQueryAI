@@ -80,7 +80,7 @@ export const postChat = async (req: Request, res: Response, next: NextFunction) 
     // 6. Respond with both user and model message
     res.status(StatusCodes.OK).send({
       success: true,
-      chat: [chat, aiResponseText],
+      chat: aiResponseText,
     });
   } catch (error) {
     next(createError(StatusCodes.INTERNAL_SERVER_ERROR, 'something went wrong'));

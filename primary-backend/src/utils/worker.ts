@@ -105,7 +105,6 @@ export const searchInQdrant = async (vector: number[], topK = 5): Promise<string
       console.warn('⚠️ No relevant results found in Qdrant.');
       return [];
     }
-    console.log('searchREsult', searchResult);
 
     const contexts = searchResult
       .map((item) => item.payload?.text)
@@ -115,5 +114,19 @@ export const searchInQdrant = async (vector: number[], topK = 5): Promise<string
   } catch (error) {
     console.error('❌ Qdrant search failed:', error);
     return [];
+  }
+};
+
+export const deleteAllEmbedding = async (): Promise<boolean | undefined> => {
+  const collectionName = 'pdf-query-ai';
+  try {
+    const response = await qdrant.delete(collectionName, {
+      filter: {},
+    });
+    if (response) {
+      return true;
+    }
+  } catch (error) {
+    return false;
   }
 };
